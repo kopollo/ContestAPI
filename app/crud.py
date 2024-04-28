@@ -1,17 +1,28 @@
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
-from app.models import User
+from app.models import User, Task
 import app.schemas as schemas
 
 
-def get_users():
-    # with get_db() as session:
-    #     # session.
-    #     ...
+def get_users() -> list[schemas.User]:
     with SessionLocal() as session:
         users = session.query(User).all()
     return users
+
+
+def get_tasks() -> list[schemas.Task]:
+    with SessionLocal() as session:
+        tasks = session.query(Task).all()
+    return tasks
+
+
+def create_task(task: schemas.Task) -> Task:
+    with SessionLocal() as session:
+        db_task = Task(task.dict)
+        session.add(db_task)
+        session.commit()
+    return db_task
 
 
 def create_user(user: schemas.User) -> User:
