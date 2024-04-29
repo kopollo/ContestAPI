@@ -1,3 +1,6 @@
+fastapi
+sqlalchemy
+pydantic
 alabaster==0.7.16
 annotated-types==0.6.0
 arandr==0.1.11
@@ -74,5 +77,4 @@ trove-classifiers==2024.3.29
 typeguard==4.2.1
 typing_extensions==4.10.0
 urllib3==1.26.18
-validate-pyproject==0.13.post1.dev0+gb752273.d20230520
->>>>>>> be639ac68dfda70ac95cf374fceb7de9a1a4ba1e
+validate-pyproject==0.13
