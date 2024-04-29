@@ -75,3 +75,4 @@ typeguard==4.2.1
 typing_extensions==4.10.0
 urllib3==1.26.18
 validate-pyproject==0.13.post1.dev0+gb752273.d20230520
+>>>>>>> be639ac68dfda70ac95cf374fceb7de9a1a4ba1e

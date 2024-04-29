@@ -413,4 +413,8 @@ pyrightconfig.json
 pyvenv.cfg
 pip-selfcheck.json
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,python,venv,pycharm+iml,pycharm+all
+=======
+# End of https://www.toptal.com/developers/gitignore/api/pycharm,python,venv,pycharm+iml,pycharm+all
+>>>>>>> be639ac68dfda70ac95cf374fceb7de9a1a4ba1e
