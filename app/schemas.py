@@ -1,5 +1,5 @@
 from typing import Optional, Union
-
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -34,6 +34,23 @@ class Contest(BaseModel):
     description: str
     creator: Union[User, None] = None
     difficulty: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": 1,
+                    "name": "Sample Contest",
+                    "description": "This is a sample contest",
+                    "creator": {
+                        "id": 123,
+                        "username": "sample_user"
+                    },
+                    "difficulty": 3
+                }
+            ]
+        }
+    }
 
 
 class Task(BaseModel):
@@ -77,6 +94,160 @@ module.exports = function (pullRequests) {
                     "memory_limit": 1024,
                     "tags": "algorithms, LNP"
                     ""
+                }
+            ]
+        }
+    }
+
+
+
+class Course(BaseModel):
+    id: int
+    name: str
+    description: str
+    creator_id: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": 1,
+                    "name": "Sample Course",
+                    "description": "This is a sample course",
+                    "creator_id": 123
+                }
+            ]
+        }
+    }
+
+class userCourse(BaseModel):
+    student_id: int
+    course_id: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "student_id": 123,
+                    "course_id": 456
+                }
+            ]
+        }
+    }
+
+class Sudmission(BaseModel):
+    id: int
+    user_id: int
+    task_id: int
+    programming_language_id: int
+    contest_id: int
+    date: datetime
+    status: bool
+    time: int
+    code: str
+    memory: int
+    output: str
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": 1,
+                    "user_id": 123,
+                    "task_id": 456,
+                    "programming_language_id": 789,
+                    "contest_id": 101,
+                    "date": "2024-04-29T12:00:00",
+                    "status": True,
+                    "time": 30,
+                    "code": "print('Hello, World!')",
+                    "memory": 1024,
+                    "output": "Hello, World!\n"
+                }
+            ]
+        }
+    }
+
+class ProgrammingLanguage(BaseModel):
+    id: int
+    name: str
+    version: str
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": 1,
+                    "name": "Python",
+                    "version": "3.9.2"
+                }
+            ]
+        }
+    }
+
+class SubmissionTest(BaseModel):
+    test_id: int
+    submission_id: int
+    score: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "test_id": 1,
+                    "submission_id": 123,
+                    "score": 80
+                }
+            ]
+        }
+    }
+
+class Test(BaseModel):
+    id: int
+    task_id: int
+    input: str
+    output: str
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": 1,
+                    "task_id": 123,
+                    "input": "input_data",
+                    "output": "expected_output"
+                }
+            ]
+        }
+    }
+
+class ContestTask(BaseModel):
+    contest_id: int
+    task_id: int
+    creator_id: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "contest_id": 1,
+                    "task_id": 123,
+                    "creator_id": 456
+                }
+            ]
+        }
+    }
+
+
+class CourseContest(BaseModel):
+    course_id: int
+    theme_id: int
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "course_id": 1,
+                    "theme_id": 123
                 }
             ]
         }
