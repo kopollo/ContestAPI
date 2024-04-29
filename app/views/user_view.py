@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from app.schemas import User, Task
+from app.schemas import User, Task, Contest, Course, Submission
 import app.crud as db
 
 router = APIRouter()
@@ -22,12 +22,5 @@ async def get_user() -> list[User]:
 
 @router.get("/tasks/")
 async def get_tasks() -> list[Task]:
-    data = db.get_tasks()
-    return data
-
-
-@router.post("/admin/tasks")
-async def create_task(task: Task) -> Task:
-    db_task = db.create_task(task)
-    print(db_task)
-    return task
+    tasks = db.get_tasks()
+    return tasks
