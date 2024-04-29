@@ -1,5 +1,5 @@
 from typing import Optional, Union
-
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -82,9 +82,7 @@ module.exports = function (pullRequests) {
         }
     }
 
-from typing import Optional, Union
-from datetime import datetime
-from pydantic import BaseModel
+
 
 class Course(BaseModel):
     id: int
