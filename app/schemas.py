@@ -81,3 +81,58 @@ module.exports = function (pullRequests) {
             ]
         }
     }
+
+from typing import Optional, Union
+from datetime import datetime
+from pydantic import BaseModel
+
+class Course(BaseModel):
+    id: int
+    name: str
+    description: str
+    creator_id: int
+
+class userCourse(BaseModel):
+    student_id: int
+    course_id: int
+
+class Sudmission(BaseModel):
+    id: int
+    user_id: int
+    task_id: int
+    programming_language_id: int
+    contest_id: int
+    date: datetime
+    status: bool
+    time: int
+    code: str
+    memory: int
+    output: str
+
+class ProgrammingLanguage(BaseModel):
+    id: int
+    name: str
+    version: str
+
+class SubmissionTest(BaseModel):
+    test_id: int
+    submission_id: int
+    score: int
+
+class Test(BaseModel):
+    id: int
+    task_id: int
+    input: str
+    output: str
+
+
+class ContestTask(BaseModel):
+    contest_id: int
+    task_id: int
+    creator_id: int
+
+
+class CourseContest(BaseModel):
+    course_id: int
+    theme_id: int
+
