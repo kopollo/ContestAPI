@@ -93,12 +93,11 @@ module.exports = function (pullRequests) {
                     "time_limit": 1000,
                     "memory_limit": 1024,
                     "tags": "algorithms, LNP"
-                    ""
+                            ""
                 }
             ]
         }
     }
-
 
 
 class Course(BaseModel):
@@ -120,6 +119,7 @@ class Course(BaseModel):
         }
     }
 
+
 class userCourse(BaseModel):
     student_id: int
     course_id: int
@@ -135,7 +135,8 @@ class userCourse(BaseModel):
         }
     }
 
-class Sudmission(BaseModel):
+
+class Submission(BaseModel):
     id: int
     user_id: int
     task_id: int
@@ -168,6 +169,7 @@ class Sudmission(BaseModel):
         }
     }
 
+
 class ProgrammingLanguage(BaseModel):
     id: int
     name: str
@@ -183,6 +185,7 @@ class ProgrammingLanguage(BaseModel):
             ]
         }
     }
+
 
 class SubmissionTest(BaseModel):
     test_id: int
@@ -200,6 +203,7 @@ class SubmissionTest(BaseModel):
             ]
         }
     }
+
 
 class Test(BaseModel):
     id: int
@@ -219,6 +223,7 @@ class Test(BaseModel):
             ]
         }
     }
+
 
 class ContestTask(BaseModel):
     contest_id: int
