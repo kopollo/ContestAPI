@@ -1,6 +1,9 @@
 fastapi
 sqlalchemy
 pydantic
+dotenv
+uvicorn
+alembic
 alabaster==0.7.16
 annotated-types==0.6.0
 arandr==0.1.11
