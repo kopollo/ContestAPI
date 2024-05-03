@@ -13,6 +13,8 @@ class User(BaseModel):
     group: str
 
     model_config = {
+        "orm_mode": True,
+
         "json_schema_extra": {
             "examples": [
                 {
@@ -27,6 +29,9 @@ class User(BaseModel):
         }
     }
 
+    # class Config:
+    #     orm_mode = True
+
 
 class Contest(BaseModel):
     id: int
@@ -35,7 +40,11 @@ class Contest(BaseModel):
     creator: Union[User, None] = None
     difficulty: int
 
+    # class Config:
+    #     orm_mode = True
+
     model_config = {
+        "orm_mode": True,
         "json_schema_extra": {
             "examples": [
                 {
@@ -55,6 +64,7 @@ class Contest(BaseModel):
 
 class Task(BaseModel):
     id: int
+    name: str
     condition: str
     input: str
     output: str
@@ -63,15 +73,21 @@ class Task(BaseModel):
     time_limit: int
     memory_limit: int
     tags: str
-    creator: Union[User, None] = None
+    creator_id: Union[User, None] = None
+
+    # class Config:
+    #     orm_mode = True
 
     model_config = {
+        "orm_mode": True,
         "json_schema_extra": {
             "examples": [
                 {
+                    "id": 1,
+                    "name": "Cat battle",
                     "condition":
                         """
-                        В компании X есть своя система контроля версий. Эта VCS не умеет анализировать изменения в файлах и может смёржить два реквеста автоматически, если они не содержат изменений в одних и тех же файлах.
+В компании X есть своя система контроля версий. Эта VCS не умеет анализировать изменения в файлах и может смёржить два реквеста автоматически, если они не содержат изменений в одних и тех же файлах.
 В определённый момент запускается робот, который автоматически мёржит в мастер пулл-реквесты. Задача робота — смёржить наибольшее количество изменений, после чего дежурный разработчик собирает текущий мастер в релиз и отдаёт его в тестирование.
 Робот принимает на вход список реквестов, отсортированных по времени создания. В данных о каждом реквесте содержится список файлов, которые в нём изменились, и время создания реквеста. В каждом реквесте может быть изменён хотя бы один файл.
 Робот должен вернуть массив с идентификаторами реквестов в том порядке, в котором их нужно смёржить. При этом робот должен влить максимум изменений (количество изменённых файлов) без конфликтов в порядке времени создания реквестов.
@@ -100,24 +116,27 @@ module.exports = function (pullRequests) {
     }
 
 
-class Course(BaseModel):
-    id: int
-    name: str
-    description: str
-    creator_id: int
-
-    model_config = {
-        "json_schema_extra": {
-            "examples": [
-                {
-                    "id": 1,
-                    "name": "Sample Course",
-                    "description": "This is a sample course",
-                    "creator_id": 123
-                }
-            ]
-        }
-    }
+# class Course(BaseModel):
+#     id: int
+#     name: str
+#     description: str
+#     creator_id: int
+#
+#     class Config:
+#         orm_mode = True
+#
+#     model_config = {
+#         "json_schema_extra": {
+#             "examples": [
+#                 {
+#                     "id": 1,
+#                     "name": "Sample Course",
+#                     "description": "This is a sample course",
+#                     "creator_id": 123
+#                 }
+#             ]
+#         }
+#     }
 
 
 class userCourse(BaseModel):
