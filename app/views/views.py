@@ -19,8 +19,10 @@ def get_db():
 @router.post("/users/", response_model=schemas.User)
 async def create_user(user: schemas.User, db: Session = Depends(get_db)):
     """Add user to db - example docs"""
+    # print(user)
+    # print("--------")
     db_user = crud.create_user(db, user)
-    print(db_user)
+    # print(db_user)
     return db_user
 
 

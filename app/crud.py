@@ -28,7 +28,8 @@ def create_user(db: Session, user: schemas.User):
     #     is_teacher=True,
     #     group="231-231"
     # )
-    db_user = models.Task(**user.model_dump())
+    print(user)
+    db_user = models.User(**user.model_dump())
     db.add(db_user)
     db.commit()
     return db_user

@@ -4,17 +4,18 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: int
+    id: Union[int, None] = None
     email: str
     password: str
     first_name: str
     last_name: str
     is_teacher: bool
     group: str
+    description: str
+    phone: str
 
     model_config = {
-        "orm_mode": True,
-
+        "from_attributes": True,
         "json_schema_extra": {
             "examples": [
                 {
@@ -24,6 +25,8 @@ class User(BaseModel):
                     "last_name": "bobic",
                     "is_teacher": False,
                     "group": "23-123",
+                    "description": "bad boy",
+                    "phone": "8 999 988 23 42"
                 }
             ]
         }
@@ -44,7 +47,7 @@ class Contest(BaseModel):
     #     orm_mode = True
 
     model_config = {
-        "orm_mode": True,
+        "from_attributes": True,
         "json_schema_extra": {
             "examples": [
                 {
@@ -79,7 +82,7 @@ class Task(BaseModel):
     #     orm_mode = True
 
     model_config = {
-        "orm_mode": True,
+        "from_attributes": True,
         "json_schema_extra": {
             "examples": [
                 {
