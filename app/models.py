@@ -14,7 +14,7 @@ class User(Base):
     last_name = Column(String)
     is_teacher = Column(Boolean)
     group = Column(String)
-    photo = Column(LargeBinary)
+    # photo = Column(LargeBinary)
     description = Column(String)
     phone = Column(Integer)
 
