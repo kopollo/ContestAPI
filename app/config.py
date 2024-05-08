@@ -5,7 +5,7 @@ config = dotenv_values()
 
 
 class Settings(BaseSettings):
-    db_name: str = config["POLYC_DB_NAME"]
+    # db_name: str = config["POLYC_DB_NAME"]
     # db_user: str
     # db_password: str
     # db_host: str
@@ -21,7 +21,6 @@ class Settings(BaseSettings):
 
     @property
     def db_url(self) -> str:
-        print(self.db_name)
         return "sqlite:///test.db"
 
 
