@@ -4,21 +4,18 @@ from sqlalchemy.orm import Session
 from app import models, schemas
 
 
-class CRUDUser:
+class CRUDTask:
     def get_all(self, db: Session):
-        return db.query(models.User).all()
-
-    def get_by_mail(self, db: Session, email: str):
-        return db.query(models.User).filter(models.User.email == email).first()
+        return db.query(models.Task).all()
 
     def get_by_id(self, db: Session, id: int):
-        return db.query(models.User).filter(models.User.id == id).first()
+        return db.query(models.Task).filter(models.Task.id == id).first()
 
-    def create(self, db: Session, user: schemas.User) -> models.User:
-        db_user = models.User(**user.model_dump())
-        db.add(db_user)
+    def create(self, db: Session, task: schemas.Task) -> models.Task:
+        db_task = models.Task(**task.model_dump())
+        db.add(db_task)
         db.commit()
-        return db_user
+        return db_task
 
     def update(self, db: Session, user: schemas.User) -> models.User:
         db_user = models.User(**user.model_dump())

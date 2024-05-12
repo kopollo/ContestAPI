@@ -12,6 +12,7 @@ from app.auth import authenticate_user, get_current_user
 from datetime import datetime, timezone, timedelta
 
 from app.database import get_db
+from app.crud.crud import user_crud
 
 router = APIRouter()
 
@@ -24,7 +25,7 @@ async def create_user(
     """Add user to db - example docs"""
     # print(user)
     # print("--------")
-    db_user = crud.create_user(db, user)
+    db_user = user_crud.create(db, user)
     # print(db_user)
     return db_user
 
@@ -32,8 +33,15 @@ async def create_user(
 @router.get("/users/", response_model=list[schemas.User])
 async def get_users(db: Session = Depends(get_db)):
     """read users - example docs"""
-    db_users = crud.get_users(db)
+    db_users = user_crud.get_all(db)
     return db_users
+
+
+@router.get("/users/{user_id}", response_model=schemas.User)
+async def get_user(user_id: int, db: Session = Depends(get_db)):
+    """read users - example docs"""
+    db_user = user_crud.get_by_id(db, user_id)
+    return db_user
 
 
 @router.get("/tasks/", response_model=list[schemas.Task])
@@ -60,7 +68,7 @@ async def create_task(
     return db_task
 
 
-@router.post("/token")
+@router.post("/login")
 async def login_for_access_token(
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
         db: Session = Depends(get_db)
@@ -84,30 +92,3 @@ async def read_users_me(
         current_user: schemas.User = Depends(get_current_user),
 ):
     return current_user
-
-# @router.put("/admin/tasks/{task_id}", tags=["admin"])
-# async def update_task(task_id: int):
-#     ...
-
-#
-# # ----------
-# @router.post("/admin/contests", tags=["admin"])
-# async def create_contest(contest: Contest) -> Contest:
-#     return contest
-#
-#
-# @router.put("/admin/contests/{contest_id}", tags=["admin"])
-# async def update_contest(task_id: int) -> Task:
-#     ...
-#
-#
-# # ----------
-#
-# @router.post("/admin/courses", tags=["admin"])
-# async def create_course(course: Course) -> Course:
-#     return course
-#
-#
-# @router.put("/admin/courses/{course_id}", tags=["admin"])
-# async def update_course(task_id: int) -> Task:
-#     ...

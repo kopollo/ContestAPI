@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     @property
     def db_url(self) -> str:
         return "sqlite:///test.db"
+    @property
+    def db_url_test(self) -> str:
+        return "sqlite:///pytest.db"
 
 
 settings = Settings()
