@@ -37,7 +37,10 @@ async def get_users(db: Session = Depends(get_db)):
 
 
 @router.get("/tasks/", response_model=list[schemas.Task])
-async def get_tasks(db: Session = Depends(get_db)):
+async def get_tasks(
+        db: Session = Depends(get_db),
+
+):
     tasks = crud.get_tasks(db)
     return tasks
 
@@ -46,8 +49,13 @@ async def get_tasks(db: Session = Depends(get_db)):
 async def create_task(
         task: schemas.Task,
         db: Session = Depends(get_db),
+        current_user: schemas.User = Depends(get_current_user),
 ):
-    print(task)
+    if not current_user.is_teacher:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not a teacher",
+        )
     db_task = crud.create_task(db, task)
     return db_task
 
@@ -73,7 +81,7 @@ async def login_for_access_token(
 
 @router.get("/users/me/", response_model=schemas.User)
 async def read_users_me(
-        current_user: Annotated[schemas.User, Depends(get_current_user)],
+        current_user: schemas.User = Depends(get_current_user),
 ):
     return current_user
 
