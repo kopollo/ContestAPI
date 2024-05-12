@@ -1,15 +1,13 @@
-from datetime import timedelta
 from typing import Union, Annotated
 
 from fastapi import APIRouter, status, Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-# from app.schemas import User, Task, Contest, Course, Submission
-from app import schemas, models, crud, security
+from app import schemas, security
 from app.auth import authenticate_user, get_current_user
 
-from datetime import datetime, timezone, timedelta
+from datetime import timedelta
 
 from app.database import get_db
 from app.crud.crud import user_crud
@@ -42,30 +40,6 @@ async def get_user(user_id: int, db: Session = Depends(get_db)):
     """read users - example docs"""
     db_user = user_crud.get_by_id(db, user_id)
     return db_user
-
-
-@router.get("/tasks/", response_model=list[schemas.Task])
-async def get_tasks(
-        db: Session = Depends(get_db),
-
-):
-    tasks = crud.get_tasks(db)
-    return tasks
-
-
-@router.post("/admin/tasks", tags=["admin"], response_model=schemas.Task)
-async def create_task(
-        task: schemas.Task,
-        db: Session = Depends(get_db),
-        current_user: schemas.User = Depends(get_current_user),
-):
-    if not current_user.is_teacher:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Not a teacher",
-        )
-    db_task = crud.create_task(db, task)
-    return db_task
 
 
 @router.post("/login")
