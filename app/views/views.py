@@ -14,13 +14,19 @@ from datetime import datetime, timezone, timedelta
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 300
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-@router.get("/items/")
-async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {"token": token}
+
+# @router.get("/items/", response_model=schemas.User)
+# async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
+#     user = await get_current_user(token)
+#     print(user.email)
+#     print(user.password)
+#     # return user
+#     return user
+#     # return {"token": token}
 
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
     to_encode = data.copy()
@@ -33,7 +39,10 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
     return encoded_jwt
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+async def get_current_user(
+        token: Annotated[str, Depends(oauth2_scheme)],
+        db: Session = Depends(get_db)
+):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -47,7 +56,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         token_data = TokenData(email=email)
     except JWTError:
         raise credentials_exception
-    user = crud.get_user_by_email(get_db(), email=token_data.email)
+    user = crud.get_user_by_email(db, email=token_data.email)
     if user is None:
         raise credentials_exception
     return user
@@ -104,16 +113,9 @@ async def login_for_access_token(
 
 @router.get("/users/me/", response_model=schemas.User)
 async def read_users_me(
-        current_user: Annotated[schemas.User, Depends(get_db)],
+        current_user: Annotated[schemas.User, Depends(get_current_user)],
 ):
     return current_user
-
-
-@router.get("/users/me/items/")
-async def read_own_items(
-        current_user: Annotated[schemas.User, Depends(get_db)],
-):
-    return [{"item_id": "Foo", "owner": current_user.username}]
 
 # @router.put("/admin/tasks/{task_id}", tags=["admin"])
 # async def update_task(task_id: int):
