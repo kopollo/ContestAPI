@@ -1,16 +1,15 @@
 from datetime import datetime, timezone, timedelta
 from typing import Union, Annotated
 
-from docutils.nodes import status
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
 
-from app.utils import get_db
-from app import schemas, models, crud
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
 
 class Token(BaseModel):
@@ -36,11 +35,12 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def authenticate_user(email: str, password: str, db: Session):
-    user = crud.get_user_by_email(db, email)
-    if not user:
-        return False
-    if not password == user.password:
-        # НЕ ЗАББЫТЬ ПОМЕНЯТЬ НА ХЕШИ
-        return False
-    return user
+def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt

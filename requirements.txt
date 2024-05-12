@@ -6,6 +6,7 @@ python-jose
 passlib
 uvicorn
 alembic
+python-multipart
 alabaster==0.7.16
 annotated-types==0.6.0
 asciidoc==10.2.0
