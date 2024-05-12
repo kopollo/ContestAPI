@@ -9,6 +9,6 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(user_routes.router, prefix="/me")
+app.include_router(user_routes.router)
 app.include_router(admin_routes.router, prefix="/admin")
 app.include_router(generic_routes.router)

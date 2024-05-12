@@ -15,16 +15,13 @@ from app.crud.crud import user_crud
 router = APIRouter()
 
 
-@router.post("/users/", response_model=schemas.User)
+@router.post("/register/", response_model=schemas.User)
 async def create_user(
         user: schemas.User,
         db: Session = Depends(get_db)
 ):
     """Add user to db - example docs"""
-    # print(user)
-    # print("--------")
     db_user = user_crud.create(db, user)
-    # print(db_user)
     return db_user
 
 
@@ -61,7 +58,7 @@ async def login_for_access_token(
     return security.Token(access_token=access_token, token_type="bearer")
 
 
-@router.get("/users/me/", response_model=schemas.User)
+@router.get("/me/", response_model=schemas.User)
 async def read_users_me(
         current_user: schemas.User = Depends(get_current_user),
 ):
