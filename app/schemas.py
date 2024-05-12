@@ -37,7 +37,7 @@ class User(BaseModel):
 
 
 class Contest(BaseModel):
-    id: int
+    id: Union[int, None] = None
     name: str
     description: str
     creator: Union[User, None] = None
@@ -66,7 +66,7 @@ class Contest(BaseModel):
 
 
 class Task(BaseModel):
-    id: int
+    id: Union[int, None] = None
     name: str
     condition: str
     input: str
@@ -77,9 +77,6 @@ class Task(BaseModel):
     memory_limit: int
     tags: str
     creator_id: Union[User, None] = None
-
-    # class Config:
-    #     orm_mode = True
 
     model_config = {
         "from_attributes": True,
@@ -228,8 +225,8 @@ class SubmissionTest(BaseModel):
 
 
 class Test(BaseModel):
-    id: int
-    task_id: int
+    id: Union[int, None] = None
+    task_id: Union[int, None] = None
     input: str
     output: str
 
@@ -237,8 +234,6 @@ class Test(BaseModel):
         "json_schema_extra": {
             "examples": [
                 {
-                    "id": 1,
-                    "task_id": 123,
                     "input": "input_data",
                     "output": "expected_output"
                 }
@@ -250,7 +245,6 @@ class Test(BaseModel):
 class ContestTask(BaseModel):
     contest_id: int
     task_id: int
-    creator_id: int
 
     model_config = {
         "json_schema_extra": {
@@ -258,7 +252,6 @@ class ContestTask(BaseModel):
                 {
                     "contest_id": 1,
                     "task_id": 123,
-                    "creator_id": 456
                 }
             ]
         }
