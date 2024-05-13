@@ -45,3 +45,14 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
     return user
+
+
+async def get_current_admin_user(
+        current_user: schemas.User = Depends(get_current_user),
+):
+    if not current_user.is_teacher:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not a teacher",
+        )
+    return current_user
