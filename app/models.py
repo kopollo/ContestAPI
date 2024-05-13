@@ -72,7 +72,6 @@ class ContestTask(Base):
     id = Column(Integer, primary_key=True, index=True)
     contest_id = Column(Integer, ForeignKey("contests.id"))
     task_id = Column(Integer, ForeignKey("tasks.id"))
-    # creator_id = Column(Integer)
 
 
 class Submission(Base):
@@ -81,7 +80,6 @@ class Submission(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     task_id = Column(Integer, ForeignKey("tasks.id"))
     programmingLanguage_id = Column(Integer, ForeignKey("programmingLanguage.id"))
-    # contest_id = Column(Integer)                   fkey
     date = Column(DateTime, default=datetime.datetime.utcnow)
     status = Column(Boolean)
     time = Column(Integer)
@@ -95,7 +93,6 @@ class CourseContest(Base):
     id = Column(Integer, primary_key=True, index=True)
     course_id = Column(Integer, ForeignKey("courses.id"))
     contest_id = Column(Integer, ForeignKey("contests.id"))
-    # theme_id = Column(Integer, ForeignKey("tasks.id"))
 
 
 class UserCourse(Base):
@@ -103,7 +100,6 @@ class UserCourse(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     course_id = Column(Integer, ForeignKey("courses.id"))
-    # student_id = Column(Integer)                   fkey
 
 
 class SubmissionTest(Base):
