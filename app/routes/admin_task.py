@@ -37,9 +37,10 @@ async def get_task(
 @router.put("/tasks/{task_id}", response_model=schemas.Task)
 async def upd_task(
         task_id: int,
+        task: schemas.Task,
         db: Session = Depends(get_db),
 ):
-    return task_crud.update(db, task_id)
+    return task_crud.update(db, task)
 
 
 @router.delete("/tasks/{task_id}", response_model=schemas.Task)
