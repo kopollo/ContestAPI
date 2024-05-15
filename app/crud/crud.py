@@ -20,13 +20,4 @@ def get_task_tests(db: Session, task_id: int) -> models.Test:
     data = db.query(models.Test).filter(models.Test.task_id == task_id).all()
     return data
 
-def add_contest_to_course(db: Session, contest: schemas.Contest) -> models.Contest:
-    data = models.Contest(**contest.model_dump)
-    db.add(data)
-    db.commit()
-    return data
-
-#Я не понял как сделать тут работу со связью многий ко многим
-#def get_course_contest(db: Session, course_id: int) -> models.Contest:
-#    data = db.query(models.Contest).filter(models.Course)
 
