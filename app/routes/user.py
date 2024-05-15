@@ -36,4 +36,5 @@ async def upd_user(
         db: Session = Depends(get_db),
 ):
     """read users - example docs"""
+    user.id = user_id
     return user_crud.update(db, user)

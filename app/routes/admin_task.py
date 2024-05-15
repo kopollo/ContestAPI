@@ -40,6 +40,7 @@ async def upd_task(
         task: schemas.Task,
         db: Session = Depends(get_db),
 ):
+    task.id = task_id
     return task_crud.update(db, task)
 
 
