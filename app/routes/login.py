@@ -25,20 +25,6 @@ async def create_user(
     return db_user
 
 
-@router.get("/users/", response_model=list[schemas.User])
-async def get_users(db: Session = Depends(get_db)):
-    """read users - example docs"""
-    db_users = user_crud.get_all(db)
-    return db_users
-
-
-@router.get("/users/{user_id}", response_model=schemas.User)
-async def get_user(user_id: int, db: Session = Depends(get_db)):
-    """read users - example docs"""
-    db_user = user_crud.get_by_id(db, user_id)
-    return db_user
-
-
 @router.post("/login")
 async def login_for_access_token(
         form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
