@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Новый репортаж{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h4>Фото и заметки для репортажа</h4>
+    <form action="/new" method="post" enctype="multipart/form-data">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>File</span>
+                <input type="file" name="images" accept="image/png, image/jpeg" multiple>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Загрузите одну или несколько фотографий">
+            </div>
+        </div>
+        <div class="input-field">
+            <textarea id="text" name="text" class="materialize-textarea"></textarea>
+            <label for="text">Заметка</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

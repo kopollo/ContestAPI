@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>Регистрация</h3>
+    <form action="/register" method="post">
+        <div class="input-field">
+            <input id="username" type="text" name="username" class="validate" required>
+            <label for="username">Имя пользователя</label>
+        </div>
+        <div class="input-field">
+            <input id="password" type="password" name="password" class="validate" required>
+            <label for="password">Пароль</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+{% endblock %}

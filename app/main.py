@@ -4,7 +4,7 @@ from app.auth import get_current_admin_user
 from app.database import engine
 from app.models import Base
 
-from app.routes import admin_task, public, login, user
+from app.routes import admin_task, public, login, user, views
 
 Base.metadata.create_all(bind=engine)
 
@@ -30,4 +30,8 @@ app.include_router(
 app.include_router(
     user.router,
     tags=["user"],
+)
+app.include_router(
+    views.router,
+    tags=["views"],
 )
