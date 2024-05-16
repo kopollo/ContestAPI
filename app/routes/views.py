@@ -10,20 +10,20 @@ from app.auth import authenticate_user, get_current_user
 
 from datetime import timedelta
 
+from app.config import templates
 from app.database import get_db
 from app.crud.crud import user_crud
 
 from fastapi.templating import Jinja2Templates
 
 # app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+
 
 router = APIRouter()
 
 
 @router.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
-    request.cookies["cat"] = "23dsfsdfdsf"
     return templates.TemplateResponse(
         request=request, name="login.html"
     )
@@ -40,4 +40,11 @@ async def register(request: Request):
 async def index(request: Request):
     return templates.TemplateResponse(
         request=request, name="base.html"
+    )
+
+
+@router.get("/admin/tasks", response_class=HTMLResponse)
+async def admin_task(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="create_task.html"
     )

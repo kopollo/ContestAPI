@@ -19,11 +19,11 @@ async def create_task(
     return db_task
 
 
-@router.get("/tasks", response_model=list[schemas.Task])
-async def get_tasks(
-        db: Session = Depends(get_db),
-):
-    return task_crud.get_all(db)
+# @router.get("/tasks", response_model=list[schemas.Task])
+# async def get_tasks(
+#         db: Session = Depends(get_db),
+# ):
+#     return task_crud.get_all(db)
 
 
 @router.get("/tasks/{task_id}", response_model=list[schemas.Task])

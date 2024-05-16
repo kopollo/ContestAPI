@@ -1,5 +1,6 @@
 from pydantic.v1 import BaseSettings
 from dotenv import load_dotenv, dotenv_values
+from starlette.templating import Jinja2Templates
 
 config = dotenv_values()
 
@@ -28,3 +29,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+templates = Jinja2Templates(directory="app/templates")

@@ -1,9 +1,10 @@
-from typing import Union, Annotated
+from typing import Union, Annotated, Optional
 
-from fastapi import APIRouter, status, Depends, HTTPException
+from fastapi import APIRouter, status, Depends, HTTPException, Request
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
+from starlette.status import HTTP_401_UNAUTHORIZED
 
 # from app.schemas import User, Task, Contest, Course, Submission
 from app import schemas, models, crud, security
@@ -11,7 +12,19 @@ from app.crud.crud import user_crud
 from app.database import get_db
 from datetime import datetime, timezone, timedelta
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+
+async def auth_by_cookie(request: Request) -> Optional[str]:
+    try:
+        user = request.cookies.get("user")
+        return user
+    except:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
 def authenticate_user(email: str, password: str, db: Session):
@@ -25,7 +38,7 @@ def authenticate_user(email: str, password: str, db: Session):
 
 
 async def get_current_user(
-        token: Annotated[str, Depends(oauth2_scheme)],
+        email: Annotated[str, Depends(auth_by_cookie)],
         db: Session = Depends(get_db)
 ):
     credentials_exception = HTTPException(
@@ -33,15 +46,7 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    try:
-        payload = jwt.decode(token, security.SECRET_KEY, algorithms=[security.ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            raise credentials_exception
-        token_data = security.TokenData(email=email)
-    except JWTError:
-        raise credentials_exception
-    user = user_crud.get_by_email(db, email=token_data.email)
+    user = user_crud.get_by_email(db, email=email)
     if user is None:
         raise credentials_exception
     return user
