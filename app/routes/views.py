@@ -16,9 +16,6 @@ from app.crud.crud import user_crud, task_crud
 
 from fastapi.templating import Jinja2Templates
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
 router = APIRouter()
 
 

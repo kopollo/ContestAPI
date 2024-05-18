@@ -147,11 +147,13 @@
 <!--      </div>-->
     </div>
     <div class="right-block">
-      <textarea class="code-input" placeholder="Введите ваше решение здесь..."></textarea>
+      <form action="/tasks/{{task.id}}" method="post">
+        <input type="text" name="code" class="code-input" placeholder="Введите ваше решение здесь..." required>
         <div class="output-container" id="output-container"></div>
-        <button class="send-button" onclick="sendCode()">Отправить</button>
-        </div>
+        <button class="send-button" type="submit">Отправить</button>
+      </form>
     </div>
+
   </div>
 </body>
 </html>

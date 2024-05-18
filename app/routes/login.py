@@ -44,8 +44,3 @@ async def login_for_access_token(
     return resp
 
 
-@router.get("/me", response_model=schemas.User)
-async def read_users_me(
-        current_user: schemas.User = Depends(get_current_user),
-):
-    return current_user

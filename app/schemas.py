@@ -156,17 +156,17 @@ class userCourse(BaseModel):
 
 
 class Submission(BaseModel):
-    id: int
+    id: Union[int, None] = None
     user_id: int
     task_id: int
-    programming_language_id: int
-    contest_id: int
-    date: datetime
+    programming_language_id: int = 1
+    contest_id: Union[int, None] = None
+    date: datetime = datetime.utcnow()
     status: bool
-    time: int
+    time: Union[int, None] = None
     code: str
-    memory: int
-    output: str
+    memory: Union[str, None] = None
+    output: Union[str, None] = None
 
     model_config = {
         "json_schema_extra": {
