@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, HTTPException
+from fastapi import APIRouter, status, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 
 from app import schemas, security
@@ -12,9 +12,28 @@ router = APIRouter()
 
 @router.post("/tasks", response_model=schemas.Task)
 async def create_task(
-        task: schemas.Task,
         db: Session = Depends(get_db),
+        name: str = Form(),
+        condition: str = Form(),
+        input: str = Form(),
+        output: str = Form(),
+        note: str = Form(),
+        max_score: int = Form(),
+        time_limit: int = Form(),
+        memory_limit: int = Form(),
+        tags: str = Form(),
 ):
+    task = schemas.Task(
+        name=name,
+        condition=condition,
+        input=input,
+        output=output,
+        note=note,
+        max_score=max_score,
+        time_limit=time_limit,
+        memory_limit=memory_limit,
+        tags=tags,
+    )
     db_task = task_crud.create(db, task)
     return db_task
 
@@ -24,7 +43,6 @@ async def create_task(
 #         db: Session = Depends(get_db),
 # ):
 #     return task_crud.get_all(db)
-
 
 @router.get("/tasks/{task_id}", response_model=list[schemas.Task])
 async def get_task(

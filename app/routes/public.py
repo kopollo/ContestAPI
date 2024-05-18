@@ -15,3 +15,11 @@ async def get_tasks(
 ):
     tasks = task_crud.get_all(db)
     return tasks
+
+
+@router.get("/tasks/{task_id}", response_model=schemas.Task)
+async def get_task(
+        task_id: int,
+        db: Session = Depends(get_db),
+):
+    return task_crud.get_by_id(db, task_id)
