@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> {{task.name}}</title>
+  <style>
+    body {
+        background-color: #2E2E2E;
+    }
+    
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #2E2E2E;
+      }
+      
+    .logo img {
+        height: 40px;
+    }
+      
+    .back-button a {
+        display: inline-block;
+        padding: 8px 24px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 18px;
+    }
+      
+    .user-icon img {
+        height: 30px;
+    }
+
+    .highlight {
+        font: 600 19px/1.29 "Montserrat", Helvetica, Arial, serif;
+        color: #f0f0f0;
+        letter-spacing: -0.38px;
+    }
+
+    .container {
+        display: flex;
+        height: 90vh;
+    }
+
+    .left-block, .right-block {
+        flex: 1;
+        background-color: #353637;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .left-block {
+        margin-right: 20px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .right-block {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .task-title {
+        color: #f0f0f0;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .task-number {
+        color: #f0f0f0;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .task-description, .input-format, .output-format, .examples {
+        color: #f0f0f0;
+        margin-bottom: 20px;
+    }
+
+    .code-input {
+        width: 100%;
+        height: 300px;
+        font-size: 16px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .output-container {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #3a3a3a;
+        border-radius: 5px;
+        color: #f0f0f0;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+  
+    .send-button {
+        display: block;
+        margin-top: 20px;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<header> <!-- ДОБАВЬ НОРМАЛЬНЫЙ ХЕДЕР -->
+    <div class="logo">
+      <img src="{{ url_for('static', path='logo.jpg') }}">
+    </div>
+<!--    <h1 class="highlight">Введение в C++</h1> &lt;!&ndash; ЗДЕСЬ ДОЛЖНА БЫТЬ JINJA &ndash;&gt;-->
+    <div class="user-icon">
+      <img src="{{ url_for('static', path='me.png') }}">
+    </div>
+  </header>
+<body>
+  <div class="container">
+    <div class="left-block">
+      <div class="task-title"> {{ task.name }}</div>
+      <div class="task-description">
+        <p>{{ task.condition }}</p>
+      </div>
+      <div class="input-format">
+        <p>Формат ввода:</p>
+        <p>{{ task.input }}</p>
+      </div>
+      <div class="output-format">
+        <p>Формат вывода:</p>
+        <p>{{ task.output }}</p>
+      </div>
+<!--      <div class="examples">-->
+<!--        <p>Примеры:</p>-->
+<!--        <p>Пример ввода:</p>-->
+<!--        <p>{{ task.input }}</p>-->
+<!--        <p>Пример вывода:</p>-->
+<!--        <p>{{ task.output }}</p>-->
+<!--      </div>-->
+    </div>
+    <div class="right-block">
+      <form action="/tasks/{{task.id}}" method="post">
+        <input type="text" name="code" class="code-input" placeholder="Введите ваше решение здесь..." required>
+        <div class="output-container" id="output-container"></div>
+        <button class="send-button" type="submit">Отправить</button>
+      </form>
+    </div>
+
+  </div>
+</body>
+</html>

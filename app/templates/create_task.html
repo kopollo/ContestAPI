@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создание задач</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        font-size: 150%;
+        margin-top: 100px;
+        margin-bottom: auto;
+        padding: 0;
+        background-color: #2E2E2E;
+    }
+
+    .container {
+        margin-top: 40px;
+        width: 40%;
+        margin: auto;
+        overflow: hidden;
+        padding: 20px;
+        background-color: #9de3e3;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-group input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .form-group input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Создание задач</h2>
+  <form action="/admin/tasks" method="post">
+    <div class="form-group">
+      <label for="name">Заголовок:</label>
+      <input type="text" id="name" name="name" required placeholder="Название">
+    </div>
+    <div class="form-group">
+      <label for="condition">Условие:</label>
+      <input type="text" id="condition" name="condition" required placeholder="Условие">
+    </div>
+    <div class="form-group">
+      <label for="input">Входные данные:</label>
+      <input type="text" id="input" name="input" required placeholder="Входные данные">
+    </div>
+    <div class="form-group">
+      <label for="output">Выходные данные:</label>
+      <input type="text" id="output" name="output" required placeholder="Выходные данные">
+    </div>
+    <div class="form-group">
+      <label for="note">Примечание:</label>
+      <input type="text" id="note" name="note" placeholder="Примечание">
+    </div>
+    <div class="form-group">
+      <label for="max_score">Максимальный балл:</label>
+      <input type="number" id="max_score" name="max_score" required placeholder="Максимальный балл">
+    </div>
+    <div class="form-group">
+      <label for="time_limit">Ограничение по времени (в секундах):</label>
+      <input type="number" id="time_limit" name="time_limit" required placeholder="Ограничение по времени">
+    </div>
+    <div class="form-group">
+      <label for="memory_limit">Ограничение по памяти (в мегабайтах):</label>
+      <input type="number" id="memory_limit" name="memory_limit" required placeholder="Ограничение по памяти">
+    </div>
+    <div class="form-group">
+      <label for="tags">Теги:</label>
+      <input type="text" id="tags" name="tags" required placeholder="Тэги">
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Зарегистрироваться" style="width: 103%;">
+    </div>
+  </form>
+</div>
+</body>
+</html>

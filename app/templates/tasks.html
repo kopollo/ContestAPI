@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Задача</title>
+    <style>
+        body {
+            background-color: #2E2E2E;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #2E2E2E;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .back-button a {
+            display: inline-block;
+            padding: 8px 24px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .user-icon img {
+            height: 30px;
+        }
+
+        .highlight {
+            font: 600 19px/1.29 "Montserrat", Helvetica, Arial, serif;
+            color: #f0f0f0;
+            letter-spacing: -0.38px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            /*display: flex;*/
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .task-block {
+            background-color: #817f7f;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 80%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-link {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .task-link h3 {
+            margin-top: 0;
+        }
+
+        .task-link p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<header> <!-- ДОБАВЬ НОРМАЛЬНЫЙ ХЕДЕР -->
+    <div class="logo">
+        <img src="./pictures/logo.png">
+    </div>
+    <div class="back-button highlight">
+        <a href="#">Назад</a>
+    </div>
+    <h1 class="highlight"> Список задач </h1> <!-- ЗДЕСЬ ДОЛЖНА БЫТЬ JINJA -->
+    <div class="user-icon">
+        <img src="./pictures/icon.png">
+    </div>
+</header>
+<body>
+{% for task in tasks %}
+<div class="container">
+    <div class="task-block">
+        <a href="{{ url_for('task', task_id=task.id)}}" class="task-link">
+            <h3>Задача {{ task.name }}</h3>
+            <p>Теги: {{ task.tags }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</body>
+</html>
